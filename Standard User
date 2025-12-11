@@ -6,22 +6,34 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class Standarduser {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		WebDriver driver = new ChromeDriver();
             driver.get("https://www.saucedemo.com/");
             WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
-            String password = "secret_sauce"; 
             WebElement usernameField = driver.findElement(By.id("user-name"));
+            usernameField.sendKeys("standard_user");
+            Actions actions = new Actions(driver);
+            actions.moveToElement(usernameField)
+                   .click()
+                   .sendKeys("a")  
+                   .sendKeys("c") 
+            .sendKeys("v");
             WebElement passwordField = driver.findElement(By.id("password"));
-			usernameField.sendKeys("standard_user");
-            passwordField.sendKeys(password);
+            passwordField.sendKeys("secret_sauce");        
+            actions.moveToElement(passwordField)
+                   .click()
+                   .sendKeys("a")  
+                   .sendKeys("c") 
+                   .sendKeys("v");               
             WebElement loginButton = driver.findElement(By.id("login-button"));
             loginButton.click();
-            driver.quit();
+            Thread.sleep(5000);
+            driver.quit();         
 }
 }
