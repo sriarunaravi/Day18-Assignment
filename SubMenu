@@ -1,0 +1,21 @@
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
+public class Submenu {
+	public static void main(String[] args) {
+		WebDriver driver = new ChromeDriver();	
+		driver.get("https://www.hyrtutorials.com/");		
+		driver.manage().window().maximize();
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		WebElement TutorialsMenu = driver.findElement(By.linkText("Tutorials"));    
+		Actions Action = new Actions(driver);
+		Action.moveToElement( TutorialsMenu);
+		WebElement submenu= driver.findElement(By.linkText("Dot Net"));
+		Action.moveToElement(submenu).click().perform();
+		driver.quit();
+	}
+}
+
