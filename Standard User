@@ -1,39 +1,31 @@
 package practice;
-
 import java.time.Duration;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Standarduser {
-	public static void main(String[] args) throws InterruptedException {
-		WebDriver driver = new ChromeDriver();
+
+public class StandardUsers{
+    public static void main(String[] args) throws InterruptedException {
+
+            WebDriver driver = new ChromeDriver();
             driver.get("https://www.saucedemo.com/");
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("user-name")));
-            WebElement usernameField = driver.findElement(By.id("user-name"));
-            usernameField.sendKeys("standard_user");
+            driver.manage().window().maximize();
+    		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            WebElement usernamesList = driver.findElement(By.xpath("//div[@id=\"login_credentials\"]"));
+            WebElement usernameField = driver.findElement(By.id("user-name")); 
             Actions actions = new Actions(driver);
-            actions.moveToElement(usernameField)
-                   .click()
-                   .sendKeys("a")  
-                   .sendKeys("c") 
-            .sendKeys("v");
-            WebElement passwordField = driver.findElement(By.id("password"));
-            passwordField.sendKeys("secret_sauce");        
-            actions.moveToElement(passwordField)
-                   .click()
-                   .sendKeys("a")  
-                   .sendKeys("c") 
-                   .sendKeys("v");               
+           actions.moveToElement(usernamesList).moveByOffset(-200,0).doubleClick().keyDown(Keys.CONTROL).sendKeys("c").perform();
+            actions.click(usernameField).keyDown(Keys.CONTROL).sendKeys("v").perform();         
+            WebElement passwordField = driver.findElement(By.id("password"));                
+            actions.moveToElement(usernamesList).moveByOffset(200,0).doubleClick().keyDown(Keys.CONTROL).sendKeys("c").perform();
+            actions.click(passwordField).keyDown(Keys.CONTROL).sendKeys("v").perform();          
             WebElement loginButton = driver.findElement(By.id("login-button"));
-            loginButton.click();
-            Thread.sleep(5000);
-            driver.quit();         
-}
-}
+            loginButton.click();                   
+        }
+
+    } 
